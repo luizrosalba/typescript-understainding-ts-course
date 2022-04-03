@@ -2,10 +2,16 @@
 
 typescript-understainding-ts-course
 
+## Running 
+
+npm start 
+
 ## Install 
 - npm install -g typescript 
 
 Ts compiles to JS 
+
+- tsc app.ts  -> creates app.js which can be loaded in index.html
 
 Ts adds:  
 
@@ -18,6 +24,15 @@ Ts adds:
 - Get support in non Ts projects 
 
 ## TS Basics 
+
+Core Types : 
+
+- number (all number formats)
+- string (all ticks)
+- boolean (just true e false) 
+- 
+- 
+
 
 ## Compiler and configs 
 
