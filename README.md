@@ -69,12 +69,16 @@ const person: {
 console.log(person.age)
 ```
 
+17 - Parei aqui 
+
 Important: Type Casing
 In TypeScript, you work with types like string or number all the times.
 
 Important: It is string and number (etc.), NOT String, Number etc.
 
 The core primitive types in TypeScript are all lowercase!
+
+
 
 ## 3 Compiler and configs 
 
