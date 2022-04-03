@@ -38,8 +38,36 @@ const number1: number = 5; (unneeded)
 Core Types : 
 
 - number (all number formats)
+
+```Js
+function add(n1: number, n2 : number ) { 
+    return n1 + n2; 
+}
+
+//const number1 = '5';  /// error 
+const number1 = 5;  /// ok 
+const number2 = 2.8; 
+
+/// can sum up numbers os string with numbers ... 
+const result = add(number1, number2); 
+console.log(result)
+
+```
 - string (all ticks)
 - boolean (just true e false) 
+- object {age:30} (infer if property exists)
+```Js
+const person: {
+    name: string,
+    age: number
+} = { 
+    name: 'Luiz', 
+    // age: '30' // fails 
+    age: 30
+}
+//console.log(person.nickname) /// fails , do not exists 
+console.log(person.age)
+```
 
 Important: Type Casing
 In TypeScript, you work with types like string or number all the times.
