@@ -25,16 +25,30 @@ Ts adds:
 
 ## TS Basics 
 
+Javascript uses "dynamic types" (resolved at runtime), TS yses "static types" (resolved during development). 
+
+Good Practice : 
+
+- let number1: number; (non initialized variable must have its type)
+
+Bad Practice : 
+
+const number1: number = 5; (unneeded)
+
 Core Types : 
 
 - number (all number formats)
 - string (all ticks)
 - boolean (just true e false) 
-- 
-- 
 
+Important: Type Casing
+In TypeScript, you work with types like string or number all the times.
 
-## Compiler and configs 
+Important: It is string and number (etc.), NOT String, Number etc.
+
+The core primitive types in TypeScript are all lowercase!
+
+## 3 Compiler and configs 
 
 ## Next gen JS 
 
