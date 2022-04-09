@@ -35,7 +35,7 @@ Bad Practice :
 
 const number1: number = 5; (unneeded)
 
-Core Types : 
+## Core Types : 
 
 - number (all number formats)
 
@@ -56,20 +56,77 @@ console.log(result)
 - string (all ticks)
 - boolean (just true e false) 
 - object {age:30} (infer if property exists)
+- Arrays [1,2,3] 
+- Tuples [1,2] -> fixed-length array 
+
 ```Js
 const person: {
     name: string,
-    age: number
+    age: number,
+    hobbies: string[]
+    role: [number, string] // tuple
 } = { 
     name: 'Luiz', 
     // age: '30' // fails 
     age: 30
+    hobbies: ['Sports']
+    role: [2,'author']  // [number,string]
 }
+let favoritesActivities: string[]
+//console.log(favoritesActivies = 'no') /// fails , is not array
 //console.log(person.nickname) /// fails , do not exists 
 console.log(person.age)
+person.role.push=('admin') /// allowed in tuples
+// person.role[1]= 10 // error 
+
+```
+Enums
+- enums enum{ NEW, OLD } -> automatically enumerated global constant identifiers start with 0 
+
+```JS 
+/// good-practice use uppercase for enums
+/// We can reassign mapping numeration or names using = 
+enum Role { ADMIN, READ_ONLY = 5, AUTHOR = 'AUTHORS' }
+
+const person = { 
+    name: 'Luiz', 
+    age: 30
+    hobbies: ['Sports']
+    role: Role.ADMIN
+}
+```
+Any
+- store any kind of value (good practice: avoid)
+```Js
+let favoriteActivities: any[]
 ```
 
-17 - Parei aqui 
+Nested Objects
+```JS
+/// Of course object types can also be created for nested objects.
+// Let's say you have this JavaScript object:
+
+const product = {
+  id: 'abc1',
+  price: 12.99,
+  tags: ['great-offer', 'hot-and-new'],
+  details: {
+    title: 'Red Carpet',
+    description: 'A great carpet - almost brand-new!'
+  }
+}
+// This would be the type of such an object:
+{
+  id: string;
+  price: number;
+  tags: string[];
+  details: {
+    title: string;
+    description: string;
+  }
+}
+// So you have an object type in an object type so to say.
+```
 
 Important: Type Casing
 In TypeScript, you work with types like string or number all the times.
@@ -78,7 +135,24 @@ Important: It is string and number (etc.), NOT String, Number etc.
 
 The core primitive types in TypeScript are all lowercase!
 
+## Union type 
 
+```Js
+function combine(input1: number | string, input2 : number | string) { 
+    let result;
+    if (typeof input1 ==='number' && typeof input2 ==='number') {
+        result = input1 + input2;
+    } else {
+        result = input1.toString() + input2.toString();
+    }
+    return result; 
+}
+
+const combinedAges = combine(30,26)
+console.log(combinedAges)
+const combinedNames = combine('luiz','sousa') /// ok
+console.log(combinedNames)
+```
 
 ## 3 Compiler and configs 
 
