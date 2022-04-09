@@ -53,6 +53,7 @@ const result = add(number1, number2);
 console.log(result)
 
 ```
+### Common Types 
 - string (all ticks)
 - boolean (just true e false) 
 - object {age:30} (infer if property exists)
@@ -80,7 +81,7 @@ person.role.push=('admin') /// allowed in tuples
 // person.role[1]= 10 // error 
 
 ```
-Enums
+### Enums
 - enums enum{ NEW, OLD } -> automatically enumerated global constant identifiers start with 0 
 
 ```JS 
@@ -95,13 +96,12 @@ const person = {
     role: Role.ADMIN
 }
 ```
-Any
+### Any
 - store any kind of value (good practice: avoid)
 ```Js
 let favoriteActivities: any[]
 ```
-
-Nested Objects
+### Nested Objects 
 ```JS
 /// Of course object types can also be created for nested objects.
 // Let's say you have this JavaScript object:
@@ -135,7 +135,7 @@ Important: It is string and number (etc.), NOT String, Number etc.
 
 The core primitive types in TypeScript are all lowercase!
 
-## Union type 
+### Union type 
 
 ```Js
 function combine(input1: number | string, input2 : number | string) { 
@@ -149,10 +149,72 @@ function combine(input1: number | string, input2 : number | string) {
 }
 
 const combinedAges = combine(30,26)
-console.log(combinedAges)
+console.log(combinedAges)//56
 const combinedNames = combine('luiz','sousa') /// ok
-console.log(combinedNames)
+console.log(combinedNames)//luizsousa
 ```
+### Literal Types 
+A new type, based on a core type (string for instance) but that has a specific value attributed
+```
+ex: resultConversion: 'as-number' | 'as-text'  /// allow only this two strings 
+``` 
+
+```Js
+function combine(
+ input1: number | string,
+ input2 : number | string, 
+ resultConversion: string 
+ ) { 
+    let result;
+    if (typeof input1 ==='number' && typeof input2 ==='number') {
+        result = input1 + input2;
+    } else {
+        result = input1.toString() + input2.toString();
+    }
+    if (resultConversion ==='as-number'){
+      return +result; /// + is same as parseFloat
+    } eles { 
+      return result.toString();
+    }
+}
+
+const combinedAges = combine(30,26, 'as-number')
+console.log(combinedAges) /// 56 
+
+const combinedStringAges = combine('30','26', 'as-number')
+console.log(combinedAges)/// 3026
+
+const combinedNames = combine('luiz','sousa', 'as-text') /// ok
+console.log(combinedNames)/// luizsousa
+```
+Changing the behavior of the function  
+
+```Js
+function combine(
+ input1: number | string,
+ input2 : number | string, 
+ resultConversion: 'string' 
+ ) { 
+    let result;
+    if (typeof input1 ==='number' && typeof input2 ==='number' || resultConversion === 'as-number') {
+        result = +input1 + +input2;
+    } else {
+        result = input1.toString() + input2.toString();
+    }
+    return result 
+}
+
+const combinedAges = combine(30,26, 'as-number')
+console.log(combinedAges) /// 56 
+
+const combinedStringAges = combine('30','26', 'as-number')
+console.log(combinedAges)/// 56
+
+const combinedNames = combine('luiz','sousa', 'as-text') /// ok
+console.log(combinedNames)/// luizsousa
+```
+
+parei no 24 
 
 ## 3 Compiler and configs 
 
