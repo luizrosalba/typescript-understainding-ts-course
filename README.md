@@ -53,7 +53,10 @@ const result = add(number1, number2);
 console.log(result)
 
 ```
-### Common Types 
+### Common Types
+
+https://www.typescriptlang.org/docs/handbook/2/everyday-types.html
+
 - string (all ticks)
 - boolean (just true e false) 
 - object {age:30} (infer if property exists)
@@ -320,6 +323,61 @@ generateError('An error occurred!', 500)
 ```
 
 ## 3 Compiler and configs 
+
+### Watch mode 
+
+- tsc app.ts --watch
+
+### Initializing a project 
+
+- tsc --init  (everything in this folder is a project)
+
+creates a tsconfig.json. After , run 
+
+- tsc (which will compile all tsc files)
+- tsc --watch  
+
+Including and excluding files 
+
+Same idea for include 
+```
+// in tsconfig.json 
+  "exclude": [
+    // exclude from compilation, work with wildcars
+    // any file in any folder "**/*.dev.ts"
+    "node_modules" // this is default behavior 
+  ]
+```
+### Seting compiler options 
+
+Important options : 
+
+- target :  what browsers supports. es5 -> older browsers
+- the older, the more workarounds must be made to make the code work on older browsers 
+- lib : Unlock features TS knows if not set , default will be assumed: "dom", "es6", "dom.iterable", "scripthost" 
+- allowJS a JS file will be compiled by ts 
+- checkJS : TS will check JS files to help 
+-  sourcemap: helps with debuging true: generate the map files to connect js to input files (can place breakpoints and super usefull to simplify debug)
+- outdir tells where the created files will be stored 
+- rootDir TS will look in only in the rootDir and subfolders 
+- noEmit : TS will only check , not produce js 
+- downlevelIteration : workaraound only turn on if you have several loops inside loops  
+- noEmitOnError: true will not generate files when errors 
+- strict : enable all to true what will be checked 
+- ! tells TS that operation will have a know value
+### Code Quality options
+- Additional Checks can be turned off for debuging 
+
+### Debugging the project 
+- Extensions : EsLint (Improve code quality) , Prettier (format) , Debbuger for Chrome (default)
+- to launch Debug : 
+1) Enable sourcemaps in tsconfig.json 
+2) place a breakpoint in code 
+3) Press F5 -> select Chrome 
+4) lauch.json will be created 
+5) change to localhost:3000 (node)
+6) compile the codes tsc 
+7) F5 again should pause in breakpoint when reached 
 
 ## Next gen JS 
 
