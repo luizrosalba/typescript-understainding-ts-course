@@ -375,9 +375,28 @@ Important options :
 2) place a breakpoint in code 
 3) Press F5 -> select Chrome 
 4) lauch.json will be created 
-5) change to localhost:3000 (node)
-6) compile the codes tsc 
-7) F5 again should pause in breakpoint when reached 
+5) change to localhost:5050 (node)
+6) Install live server extension 
+7) compile the codes tsc 
+8) F5 again should pause in breakpoint when reached 
+```
+/// Correct launch;json 
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against localhost",
+      "url": "http://localhost:5500",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
+```
 
 ## Next gen JS 
 
