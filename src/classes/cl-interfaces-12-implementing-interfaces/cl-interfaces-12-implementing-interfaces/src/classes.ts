@@ -42,7 +42,7 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
-  private static instance: AccountingDepartment;  // only accessible inside the class Singleton 
+  private static instance: AccountingDepartment;
 
   get mostRecentReport() {
     if (this.lastReport) {
@@ -63,9 +63,9 @@ class AccountingDepartment extends Department {
     this.lastReport = reports[0];
   }
 
-  static getInstance() { // singleton only one instance 
+  static getInstance() {
     if (AccountingDepartment.instance) {
-      return this.instance; // return the instance 
+      return this.instance;
     }
     this.instance = new AccountingDepartment('d2', []);
     return this.instance;
