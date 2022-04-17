@@ -512,11 +512,27 @@ src\classes\cl-interfaces-14-interface-function-types
 
 src\classes\cl-interfaces-15-optional-properties
 
-
 ## Advances types and Ts features 
+src\advancedTypes\adv-types-01-starting-setup
 
-## Generics 
+src\advancedTypes\adv-types-02-intersection-types
 
+### Type Guards 
+src\advancedTypes\adv-types-03-type-guards
+
+
+### Intersection Types 
+
+### Discriminated Unions
+src\advancedTypes\adv-types-04-discriminated-unions
+### Type Casting 
+src\advancedTypes\adv-types-05-type-casting
+### Function Overloads  
+src\advancedTypes\adv-types-06-index-properties
+
+src\advancedTypes\adv-types-07-function-overloads## Generics 
+
+src\advancedTypes\adv-types-08-optional-chaining-nullish-coalescing
 ## Decorators 
 
 ## Building a project from scratch 
