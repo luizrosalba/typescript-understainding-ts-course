@@ -425,6 +425,47 @@ const [hobby1, hobby2, ...remainingHobbies] = hobbies
 const {firstName: userName, age} = person // override firstname with userName
 
 ## Classes and interfaces 
+- Object-Oriented Programming (OOP)
+
+- Work with real life entities in code 
+
+- Ex: ProductList -> Product -> ShoppingCart ... 
+
+- Objects and Classes 
+
+Objects : Things your code work with in code ex: Instance of classes . Class based is an alternative to using ibject literals. 
+
+Classes : BluePrints for objects. Define how objects look like which properties and methods they have. Classes make creation of multiple similar objects much easier
+
+- this
+- private and public 
+- shorthand initialization 
+
+ex: constructor (private readonly id :string, public name: string )
+
+- Inherance 
+Gest everything from base class 
+- you have to add super to load base class 
+
+- class ITDepartment extends Department {
+  constructor(id: string){
+    super(id, 'IT')
+  }
+}
+
+- private are accessed only from class and not from classes with extend the class
+
+- protected is avaliable to extended classes 
+
+- getter and setter  call getter like property not like method 
+
+- static property and methods : Called directly on the class (Department.createEmployee('Luiz')) not on instances of the class ex: Math.pow() don't need new Math() . Good for utilities methods 
+- static properties also can't be accessed by this, should be accessed by Department.name; 
+
+- Abstract Classes 
+Enforce a certain method is available 
+- Add abstract on method and on class 
+ 
 
 ## Advances types and Ts features 
 
