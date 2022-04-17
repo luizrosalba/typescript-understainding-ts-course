@@ -423,7 +423,13 @@ const addedNumbers = add(5,10,2,3.7)
 const [hobby1, hobby2, ...remainingHobbies] = hobbies 
 
 const {firstName: userName, age} = person // override firstname with userName
+### The ! operator
 
+Tells TS that the expression will never yeld null ex: 
+
+```TS
+userInputElement = document.getElementById('user-input')!;
+```
 ## Classes and interfaces 
 - Object-Oriented Programming (OOP)
 
@@ -439,16 +445,16 @@ Classes : BluePrints for objects. Define how objects look like which properties 
 
 src\classes\cl-interfaces-02-class-and-this-basics
 
-### this
+### This
 
 src\classes\cl-interfaces-02-class-and-this-basics
 
 
-### private and public 
+### Private and public 
 
 src\classes\cl-interfaces-03-private-and-public
 
-### shorthand initialization 
+### Shorthand initialization 
 
 src\classes\cl-interfaces-04-shorter-init-syntax
 
@@ -513,26 +519,47 @@ src\classes\cl-interfaces-14-interface-function-types
 src\classes\cl-interfaces-15-optional-properties
 
 ## Advances types and Ts features 
+
+
+### Intersection Types 
 src\advancedTypes\adv-types-01-starting-setup
 
 src\advancedTypes\adv-types-02-intersection-types
 
 ### Type Guards 
+
+Check if a property exists before something else is done (typeof, in, instanceof )
+
 src\advancedTypes\adv-types-03-type-guards
 
-
-### Intersection Types 
-
 ### Discriminated Unions
+
+Common pattern to mix interfaces with same methods with small distictions 
+
 src\advancedTypes\adv-types-04-discriminated-unions
 ### Type Casting 
 src\advancedTypes\adv-types-05-type-casting
-### Function Overloads  
+
+### Index Properties 
 src\advancedTypes\adv-types-06-index-properties
 
-src\advancedTypes\adv-types-07-function-overloads## Generics 
+### Functional Overload 
 
+Like headers from C++ 
+
+src\advancedTypes\adv-types-07-function-overloads
+
+### Optional Chaining and Nullish Coalescing 
+
+fetchedData.?job.?title 
+
+?? only works for undefined 
+
+const Input = userInput  ?? 'DEFAULT'
 src\advancedTypes\adv-types-08-optional-chaining-nullish-coalescing
+
+
+## Generics 
 ## Decorators 
 
 ## Building a project from scratch 
