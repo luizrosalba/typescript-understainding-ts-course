@@ -379,7 +379,7 @@ Important options :
 6) Install live server extension 
 7) compile the codes tsc 
 8) F5 again should pause in breakpoint when reached 
-```
+```JS
 /// Correct launch;json 
 {
   // Use IntelliSense to learn about possible attributes.
@@ -431,7 +431,7 @@ const {firstName: userName, age} = person // override firstname with userName
 
 - Ex: ProductList -> Product -> ShoppingCart ... 
 
-- Objects and Classes 
+### Objects and Classes 
 
 Objects : Things your code work with in code ex: Instance of classes . Class based is an alternative to using ibject literals. 
 
@@ -439,22 +439,22 @@ Classes : BluePrints for objects. Define how objects look like which properties 
 
 src\classes\cl-interfaces-02-class-and-this-basics
 
-- this
+### this
 
 src\classes\cl-interfaces-02-class-and-this-basics
 
 
-- private and public 
+### private and public 
 
 src\classes\cl-interfaces-03-private-and-public
 
-- shorthand initialization 
+### shorthand initialization 
 
 src\classes\cl-interfaces-04-shorter-init-syntax
 
 ex: constructor (private readonly id :string, public name: string )
 
-- Inherance 
+### Inherance 
 Gest everything from base class 
 - you have to add super to load base class 
 
@@ -465,44 +465,50 @@ src\classes\cl-interfaces-06-inheritance
     super(id, 'IT')
   }
 }
+### Private vs protected 
 
 - private are accessed only from class and not from classes with extend the class
 
 - protected is avaliable to extended classes 
 
+### Interface 
+
 src\classes\cl-interfaces-07-overriding-and-protected
+
+### Getter and Setter 
 
 - getter and setter  call getter like property not like method 
 
 src\classes\cl-interfaces-08-getters-and-setters
 
+### Static 
 - static property and methods : Called directly on the class (Department.createEmployee('Luiz')) not on instances of the class ex: Math.pow() don't need new Math() . Good for utilities methods 
 - static properties also can't be accessed by this, should be accessed by Department.name; 
 
-- Abstract Classes 
+### Abstract Classes 
 
 Enforce a certain method is available 
 - Add abstract on method and on class  good for singletons 
 
 src\classes\cl-interfaces-09-abstract
 
-- Interface 
+### Interface 
 Describe the structure of an object. Acepts readonly modifier 
 
 src\classes\cl-interfaces-11-basic-interfaces
 
-- Interface with classes 
+### Interface with classes 
 
 src\classes\cl-interfaces-12-implementing-interfaces
 
-- Extending intefaces 
+### Extending intefaces 
 
 src\classes\cl-interfaces-13-interface-inheritance
 
-- Interfaces as function types 
+### Interfaces as function types 
 src\classes\cl-interfaces-14-interface-function-types
 
-- option params 
+### option params 
 
 src\classes\cl-interfaces-15-optional-properties
 
