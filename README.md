@@ -397,8 +397,32 @@ Important options :
   ]
 }
 ```
-
 ## Next gen JS 
+- TS helps older browsers to use new JS features 
+
+- let vs const
+- arrow functions 
+- default function params 
+
+const add = ( a: number, b: number = 1) => a + b
+
+- spread operator for arrays and objects 
+
+- rest params 
+
+```TS
+const add = (...numbers : number[] ) => {
+  return numbers.reduce ((curResult, curValue ) => {
+    return curResult + curValue
+  },0)
+}
+const addedNumbers = add(5,10,2,3.7)
+```
+- Array destructuring 
+
+const [hobby1, hobby2, ...remainingHobbies] = hobbies 
+
+const {firstName: userName, age} = person // override firstname with userName
 
 ## Classes and interfaces 
 

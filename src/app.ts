@@ -16,3 +16,11 @@ function clickHandler(message: string) {
 if (button) {
   button.addEventListener('click', clickHandler.bind(null, "You're welcome!"));
 }
+
+
+const add3 = (...numbers : number[] ) => {
+  return numbers.reduce ((curResult, curValue ) => {
+    return curResult + curValue
+  },0)
+}
+const addedNumbers = add3(5,10,2,3.7)
