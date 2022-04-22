@@ -558,8 +558,77 @@ fetchedData.?job.?title
 const Input = userInput  ?? 'DEFAULT'
 src\advancedTypes\adv-types-08-optional-chaining-nullish-coalescing
 
-
 ## Generics 
+
+A type conected to other type. 
+
+Ex1: Array<string> , Array<string | number>
+
+This allow TS to call string methods 
+
+
+Ex1: Array<string> , Array<string | number>
+
+```TS 
+const promise: Promise<number> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(10);
+  }, 2000);
+});
+```
+
+### Creating a generic function : 
+
+```TS
+/// T and U are different type of data 
+function merge<T extends object, U extends object>(objA: T, objB: U) {
+  return Object.assign(objA, objB);
+}
+
+///mergeObj.name will work same as mergeObj.age
+const mergedObj = merge({ name: 'Max', hobbies: ['Sports'] }, { age: 30 });
+console.log(mergedObj);
+```
+
+### Constrains 
+
+Ability to limit which kind inputs can be user on a function 
+
+```TS
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let descriptionText = 'Got no value.';
+  if (element.length === 1) {
+    descriptionText = 'Got 1 element.';
+  } else if (element.length > 1) {
+    descriptionText = 'Got ' + element.length + ' elements.';
+  }
+  return [element, descriptionText];
+}
+
+console.log(countAndDescribe(['Sports', 'Cooking']));
+```
+### The keyOf constrain 
+
+Garanties that second object is a property of first object (extends keyOf T)
+
+```TS
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return 'Value: ' + obj[key];
+}
+
+extractAndConvert({ name: 'Max' }, 'name');
+
+
+```
+### Generic Classes 
+
 ## Decorators 
 
 ## Building a project from scratch 
