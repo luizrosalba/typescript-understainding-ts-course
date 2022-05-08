@@ -430,6 +430,23 @@ Tells TS that the expression will never yeld null ex:
 ```TS
 userInputElement = document.getElementById('user-input')!;
 ```
+
+### The !! operator 
+
+The !! ensures the resulting type is a boolean (true or false).
+
+javascript:alert("foo") --> foo
+
+javascript:alert(!"foo") --> false
+
+javascript:alert(!!"foo") --> true
+
+javascript:alert(!!null) --> false
+
+They do this to make sure $('row') isn't null.
+
+It's shorter to type than $('row') != null ? true : false.
+
 ## Classes and interfaces 
 - Object-Oriented Programming (OOP)
 
@@ -738,6 +755,7 @@ Decorators run when class is defined not when its initiated
 
 A function that returns a function in order to be able to pass values which will be used by the inner decorator function 
 
+the h1 will be injected into app by the decorator 
 
 ```TS
 function Logger(logString: string) {
@@ -761,9 +779,391 @@ const pers = new Person();
 console.log(pers);
 
 ```
-
 ### More useful decorators 
+We can expose libs to others devs , its easy to expose and change behaviors. Angular uses decorators a lot 
 
+```TS
+function Logger(logString: string) {
+  console.log('LOGGER FACTORY');
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
+  return function(constructor: any) {
+    console.log('Rendering template');
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector('h1')!.textContent = p.name;
+    }
+  }
+}
+
+// @Logger('LOGGING - PERSON')
+@Logger('LOGGING')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+
+```
+
+### Decorators run order : 
+
+bottom to top but first the decorator factory 
+
+### Property decorators 
+
+we can add decorators to properties 
+```TS
+function Logger(logString: string) {
+  console.log('LOGGER FACTORY');
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
+  return function(constructor: any) {
+    console.log('Rendering template');
+    const hookEl = document.getElementById(hookId);
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template;
+      hookEl.querySelector('h1')!.textContent = p.name;
+    }
+  };
+}
+
+// @Logger('LOGGING - PERSON')
+@Logger('LOGGING')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+
+// ---
+
+function Log(target: any, propertyName: string | Symbol) {
+  console.log('Property decorator!');
+  console.log(target, propertyName);
+}
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log3(
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log('Method decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+// symbol is a unique element in ts 
+function Log4(target: any, name: string | Symbol, position: number) {
+  console.log('Parameter decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
+
+class Product {
+  // log is added to properties 
+  @Log
+  title: string;
+  private _price: number;
+  // log2 is added to accessors 
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid price - should be positive!');
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  //method decorator
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+
+```
+Decorators do not decide run order in runtime. Decorators do things behind the scenes. It's a design pattern that adds behaviors when a function, method, property ... is called. Its not created when the class is instancied. 
+
+### Using the return of decorators 
+
+```TS
+function Logger(logString: string) {
+  console.log('LOGGER FACTORY');
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+function WithTemplate(template: string, hookId: string) {
+  console.log('TEMPLATE FACTORY');
+  return function<T extends { new (...args: any[]): {name: string} }>(
+    originalConstructor: T
+  ) {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+        console.log('Rendering template');
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector('h1')!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+
+// @Logger('LOGGING - PERSON')
+@Logger('LOGGING')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+
+// ---
+
+function Log(target: any, propertyName: string | Symbol) {
+  console.log('Property decorator!');
+  console.log(target, propertyName);
+}
+
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log('Accessor decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log3(
+  target: any,
+  name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  console.log('Method decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
+}
+
+function Log4(target: any, name: string | Symbol, position: number) {
+  console.log('Parameter decorator!');
+  console.log(target);
+  console.log(name);
+  console.log(position);
+}
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Invalid price - should be positive!');
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  @Log3
+  getPriceWithTax(@Log4 tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+
+const p1 = new Product('Book', 19);
+const p2 = new Product('Book 2', 29);
+
+```
+We can extend, replace, ...  classes using decorators.  Decorators added to methods and accessors can return values 
+
+Properties descriptors 
+type: PropertyDescriptor 
+- configurable 
+- enumerable 
+- value 
+- writable 
+
+
+Accesors descriptors: 
+- configurable
+- enumerable 
+- get 
+- set 
+
+### Creating a autobinder decorator 
+
+```TS
+const p1 = new Product('Book', 19);
+const p2 = new Product('Book 2', 29);
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    }
+  };
+  return adjDescriptor;
+}
+
+class Printer {
+  message = 'This works!';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+p.showMessage();
+
+const button = document.querySelector('button')!;
+button.addEventListener('click', p.showMessage);
+```
+
+### Validation with decorators 
+
+Decorators can be used to validate title and price 
+
+```TS
+
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[]; // ['required', 'positive']
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+ 
+function Required(target: any, propName: string) {
+    registeredValidators[target.constructor.name] = {
+        ...registeredValidators[target.constructor.name],
+        [propName]: [...(registeredValidators[target.constructor.name]?.[propName] ?? []), 'required']
+    };
+}
+ 
+function PositiveNumber(target: any, propName: string) {
+    registeredValidators[target.constructor.name] = {
+        ...registeredValidators[target.constructor.name],
+        [propName]: [...(registeredValidators[target.constructor.name]?.[propName] ?? []), 'positive']
+    };
+}
+
+function validate(obj: any) {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objValidatorConfig) {
+    return true;// if no validator , always valid 
+  }
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector('form')!;
+courseForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const titleEl = document.getElementById('title') as HTMLInputElement;
+  const priceEl = document.getElementById('price') as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const createdCourse = new Course(title, price);
+
+  if (!validate(createdCourse)) {
+    alert('Invalid input, please try again!');
+    return;
+  }
+  console.log(createdCourse);
+});
+
+```
 
 ## Building a project from scratch 
 
