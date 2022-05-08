@@ -705,6 +705,66 @@ Union lets you mix (choose whichever) data while Generics is useful to locks and
 
 ## Decorators 
 
+Garanties that a class, method, etc is used correctly by others programmers 
+
+make sure to use "experimentalDecorators": true  on tsconfig 
+
+Decorators are all about classes 
+
+```TS
+function Logger(constructor: Function) {
+  console.log('Logging...');
+  console.log(constructor);
+}
+
+
+///decorator @ 
+@Logger
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+```
+Decorators run when class is defined not when its initiated 
+
+### Decorators Factories 
+
+A function that returns a function in order to be able to pass values which will be used by the inner decorator function 
+
+
+```TS
+function Logger(logString: string) {
+  return function(constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+@Logger('LOGGING - PERSON')
+class Person {
+  name = 'Max';
+
+  constructor() {
+    console.log('Creating person object...');
+  }
+}
+
+const pers = new Person();
+
+console.log(pers);
+
+```
+
+### More useful decorators 
+
+
 ## Building a project from scratch 
 
 ## Namespace and modules 
