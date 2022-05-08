@@ -629,6 +629,59 @@ extractAndConvert({ name: 'Max' }, 'name');
 ```
 ### Generic Classes 
 
+Restrict what is accepted by a class
+
+```TS
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    if (this.data.indexOf(item) === -1) {
+      return;
+    }
+    this.data.splice(this.data.indexOf(item), 1); // -1
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem('Max');
+textStorage.addItem('Manu');
+textStorage.removeItem('Max');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+
+// const objStorage = new DataStorage<object>();
+// const maxObj = {name: 'Max'};
+// objStorage.addItem(maxObj);
+// objStorage.addItem({name: 'Manu'});
+// // ...
+// objStorage.removeItem(maxObj);
+// console.log(objStorage.getItems());
+```
+
+### Generic utility types 
+
+``` TS
+//// create a var where all the props are optional
+interface courseGoal {
+  title:string, 
+  description: string,
+  validAt : Date
+}
+let courseGoal: Partial <CourseGoal>
+```
+
+https://www.typescriptlang.org/docs/handbook/utility-types.html
+
 ## Decorators 
 
 ## Building a project from scratch 
