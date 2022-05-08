@@ -670,17 +670,38 @@ const numberStorage = new DataStorage<number>();
 
 ### Generic utility types 
 
-``` TS
+```TS
 //// create a var where all the props are optional
-interface courseGoal {
-  title:string, 
-  description: string,
-  validAt : Date
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
 }
-let courseGoal: Partial <CourseGoal>
+
+function createCourseGoal(
+  title: string,
+  description: string,
+  date: Date
+): CourseGoal {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = title;
+  courseGoal.description = description;
+  courseGoal.completeUntil = date;
+  return courseGoal as CourseGoal;
+}
+
+const names: Readonly<string[]> = ['Max', 'Anna'];
+// names.push('Manu'); ///error 
+// names.pop(); ///// error 
 ```
 
 https://www.typescriptlang.org/docs/handbook/utility-types.html
+
+
+### Generic Types vs Union types 
+
+Union lets you mix (choose whichever) data while Generics is useful to locks and restricts to only one type of data to all the class. Generics help create data structures that works togheter with multiple other possible types (e.g. an object which emits data of different types )
+
 
 ## Decorators 
 
