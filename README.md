@@ -1164,10 +1164,16 @@ courseForm.addEventListener('submit', event => {
 });
 
 ```
+## Namespace and modules (Code Spliting)
 
-## Building a project from scratch 
+- We want to split code into module files (able to import and export)
 
-## Namespace and modules 
+- code spliting 
+
+- multiple js bundles can be created and imported on HTML ( error prone )
+
+- namespaces and bundling are a good choice for big projects 
+
 
 ## Webpack and TS 
 
