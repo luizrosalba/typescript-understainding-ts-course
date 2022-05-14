@@ -1165,6 +1165,7 @@ courseForm.addEventListener('submit', event => {
 
 ```
 ## Namespace and modules (Code Spliting)
+- Namespaces are good for small projects 
 
 - We want to split code into module files (able to import and export)
 
@@ -1173,6 +1174,43 @@ courseForm.addEventListener('submit', event => {
 - multiple js bundles can be created and imported on HTML ( error prone )
 
 - namespaces and bundling are a good choice for big projects 
+
+```ts 
+namespace DDInterfaces {
+  /// with export you can access inside and outside namespace 
+  export interface Example {
+    first : string 
+    second: number 
+  }
+}
+
+// to import : use three slashes, this is the syntax. But the interface must be declared inside the file which is using it
+
+/// <reference path = "interface.ts" />
+```
+if you have multiple namespaces, uncomment "outFile": "./",  in tsconfig.json to compile multiple namespaces to same file and also set module to amd. this generates the index.html and the single import of multiple files to one 
+
+src\modulesNamespaces\modules-01-namespaces
+
+- Es6 modules can warn if there is some definitions/ imports  missing
+
+- with Es6 you can delete all namespaces and import 
+
+src\modulesNamespaces\modules-02-es-modules-basics
+
+export : 
+
+- you can only have 1 default export per file , but you can have unlimited exports . exports forces to use the same name 
+
+import { feature } from 'abc.js'
+
+
+- the imported from default doesn't have to match the exported name from file 
+
+```
+import Component from 'abc.js'
+```
+
 
 
 ## Webpack and TS 
