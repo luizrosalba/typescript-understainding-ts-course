@@ -1410,7 +1410,38 @@ for (const prod of loadedProducts) {
 ```
 ## React + TS 
 
+- create react app (CRA)
+- npx create-react-app proj-name --typescript
+- tsx add jsx code to ts
+- in node _modules/@types we can see a lot of declareted types 
+- Type React.FC stands for React function component could also use React.ClassicComponent
+- with this type, ts makes sure jsx is returned 
 
+- props and types for props 
+
+Typescript will force to declare the types of props 
+
+```ts
+import React from 'react';
+
+interface TodoListProps {
+  items: {id: string, text: string}[];
+};
+
+const TodoList: React.FC<TodoListProps> = props => {
+  return (
+    <ul>
+      {props.items.map(todo => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+};
+
+export default TodoList;
+
+```
+179
 
 ##  NodeJS + TS 
 
