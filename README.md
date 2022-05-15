@@ -1211,10 +1211,76 @@ import { feature } from 'abc.js'
 import Component from 'abc.js'
 ```
 
-
-
 ## Webpack and TS 
 
+Every http have a overhead, a lot of files splited takes time 
+
+
+Webpack bundle files together. Reduce the amount of http requests. Optimize code (minified) . Help with css. External local development server. 
+
+using devtools , you will find the webpack folder inside sources tab and you can add breakpoints 
+```TS 
+const path = require('path');
+
+module.exports = {
+  entry: './src/app.ts',
+  mode: 'development',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'inline-source-map', // improves debugin
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  }
+};
+```
+package.json 
+```
+    "start": "webpack-dev-server",
+    "build": "webpack --config webpack.config.prod.js"
+```
+you must set publicpath so that dev config will work with debug, else devserver gets lost thinking the src folder is the project root 
+
+prod configs 
+```TS
+const path = require('path');
+const CleanPlugin = require('clean-webpack-plugin');
+
+module.exports = {
+  mode: 'production',
+  entry: './src/app.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  devtool: 'none',
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
+  plugins: [
+    new CleanPlugin.CleanWebpackPlugin()
+  ]
+};
+```
 ## 3rd party libs 
 
 ## React + TS and NodeJS + TS 
