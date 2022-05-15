@@ -1283,6 +1283,137 @@ module.exports = {
 ```
 ## 3rd party libs 
 
-## React + TS and NodeJS + TS 
+- Lodash (https://lodash.com/docs/) (npm and cdn)
+- ts doesnt understand lodash, there is no ts version of lodash 
+- lodash can be translated to ts 
+- install types of lodash @types/lodash (.d.ts are declaration files, tells how to convert js to ts) 
+- npm install --save-dev @types/lodash 
+- same goes with any js lib in ts search for types of lib to get rid of the errors 
+- when does not exists, 
+
+- obs : adds a global var to window obj
+
+<script> var GLOBAL = 'This is set'; </script> 
+
+in ts we can use 
+```ts
+declare var GLOBAL: any; 
+```
+
+- Class transformer 
+
+class transformer convert data into apropriate modules 
+
+```ts
+export class Product {
+  title: string;
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+
+  getInformation() {
+    return [this.title, `$${this.price}`];
+  }
+}
+```
+
+```ts
+import 'reflect-metadata';
+import { plainToClass } from 'class-transformer';
+
+import { Product } from './product.model';
+
+/// would come from a backend as json 
+const products = [
+  { title: 'A Carpet', price: 29.99 },
+  { title: 'A Book', price: 10.99 }
+];
+
+// const p1 = new Product('A Book', 12.99);
+
+// const loadedProducts = products.map(prod => {
+//   return new Product(prod.title, prod.price);
+// });
+
+/// will translate every loaded products from json into compactible Product class
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+
+```
+
+- Class validator 
+
+Validation rules using decorators. turn experimental Decorators to true in tsconfig.json
+
+
+```ts
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+
+export class Product {
+  @IsNotEmpty()
+  title: string;
+  @IsNumber()
+  @IsPositive()
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+
+  getInformation() {
+    return [this.title, `$${this.price}`];
+  }
+}
+```
+must also import validate
+```ts
+import 'reflect-metadata';
+import { plainToClass } from 'class-transformer';
+import { validate } from 'class-validator';
+
+import { Product } from './product.model';
+
+const products = [
+  { title: 'A Carpet', price: 29.99 },
+  { title: 'A Book', price: 10.99 }
+];
+
+const newProd = new Product('', -5.99);
+validate(newProd).then(errors => {
+  if (errors.length > 0) {
+    console.log('VALIDATION ERRORS!');
+    console.log(errors);
+  } else {
+    console.log(newProd.getInformation());
+  }
+});
+
+// const p1 = new Product('A Book', 12.99);
+
+// const loadedProducts = products.map(prod => {
+//   return new Product(prod.title, prod.price);
+// });
+
+const loadedProducts = plainToClass(Product, products);
+
+for (const prod of loadedProducts) {
+  console.log(prod.getInformation());
+}
+
+```
+## React + TS 
+
+
+
+##  NodeJS + TS 
+
+
 
 
