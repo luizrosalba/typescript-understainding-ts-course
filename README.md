@@ -1508,6 +1508,12 @@ npm install --save-dev @types/module-name
 
 ##  NodeJS + TS 
 
+- node cant natively use Ts 
+- ts-node is good package for dev but not for prod
+- configs 
+
+src\node\node-01-starting-setup\node-01-starting-setup\tsconfig.json
+
 
 
 
