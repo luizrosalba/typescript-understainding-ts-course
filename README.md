@@ -1514,6 +1514,6 @@ npm install --save-dev @types/module-name
 
 src\node\node-01-starting-setup\node-01-starting-setup\tsconfig.json
 
-
+Nest.js gives you ts and node out of the box 
 
 
