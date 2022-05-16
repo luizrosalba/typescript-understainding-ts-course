@@ -1506,10 +1506,6 @@ OBS: TS error: Could not find a declarition file for module 'module-name' can be
 
 npm install --save-dev @types/module-name
 
-
-
-
-
 ##  NodeJS + TS 
 
 
