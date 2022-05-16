@@ -1441,7 +1441,74 @@ const TodoList: React.FC<TodoListProps> = props => {
 export default TodoList;
 
 ```
-179
+useRef can add functionalities to existing components 
+
+```ts
+import React, { useRef } from 'react';
+
+const NewTodo: React.FC = () => {
+  const textInputRef = useRef<HTMLInputElement>(null);
+
+  const todoSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    //! to avoid the fact that textInputRef will never be null 
+    const enteredText = textInputRef.current!.value;
+    console.log(enteredText);
+  };
+
+  return (
+    <form onSubmit={todoSubmitHandler}>
+      <div>
+        <label htmlFor="todo-text">Todo Text</label>
+        <input type="text" id="todo-text" ref={textInputRef} />
+      </div>
+      <button type="submit">ADD TODO</button>
+    </form>
+  );
+};
+
+export default NewTodo;
+
+```
+
+States and types on React 
+
+```ts
+import React, { useState } from 'react';
+
+import TodoList from './components/TodoList';
+import NewTodo from './components/NewTodo';
+import { Todo } from './todo.model';
+
+const App: React.FC = () => {
+  /// <> is required 
+  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const todoAddHandler = (text: string) => {
+    setTodos(prevTodos => [
+      ...prevTodos,
+      { id: Math.random().toString(), text: text }
+    ]);
+  };
+
+  return (
+    <div className="App">
+      <NewTodo onAddTodo={todoAddHandler} />
+      <TodoList items={todos} />
+    </div>
+  );
+};
+
+export default App;
+```
+
+OBS: TS error: Could not find a declarition file for module 'module-name' can be solved with . This will give autocomplete to module 
+
+npm install --save-dev @types/module-name
+
+
+
+
 
 ##  NodeJS + TS 
 

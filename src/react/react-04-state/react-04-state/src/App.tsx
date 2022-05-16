@@ -5,6 +5,7 @@ import NewTodo from './components/NewTodo';
 import { Todo } from './todo.model';
 
 const App: React.FC = () => {
+  /// <> is required 
   const [todos, setTodos] = useState<Todo[]>([]);
 
   const todoAddHandler = (text: string) => {
